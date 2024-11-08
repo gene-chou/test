@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Generating Videos from Unposed Internet Photos">
+  <meta name="keywords" content="KFC-W, Keyframe-conditioned video generation, Internet Photos, Scaling 3D Learning, Self-supervised learning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KFC-W</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="data:image/svg+xml,
+    <svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22>
+      <text y=%22.9em%22 font-size=%2290%22>🏛️</text>
+    </svg>"
+  >
+
+  <style>
+    .slideshow-container {
+      position: relative;
+      margin: 0 auto;
+      width: 1000px;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .video-container {
+      width: 100%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: white;
+      height: 400px;
+    }
+    .video-container video {
+      width: 384px; 
+      height: 384px;
+      object-fit: contain;
+      display: block;
+      border: 4px solid transparent;
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+    }
+    .video-container video.highlight-start {
+      border-color: greenyellow;
+    }
+    .video-container video.highlight-end {
+      border-color: red;
+    }
+    .nav-button {
+      position: absolute;
+      top: 300px;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.2);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      z-index: 10;
+      transition: all 0.3s ease;
+    }
+    .nav-button:hover {
+      background: rgba(0, 0, 0, 0.4);
+    }
+    .prev-button {
+      left: 110px;
+    }
+    .next-button {
+      right: 110px;
+    }
+    .counter {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      z-index: 10;
+    }
+    .source-images {
+      margin: 20px auto;
+      padding: 0;
+      width: 100%;
+      background: white;
+      min-height: 250px;
+    }
+    .image-grid {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      padding: 0 20px;
+      margin: 0 auto;
+      min-height: 180px;
+    }
+    .image-container {
+      position: relative;
+      width: 180px;   /* Reduced from 240px */
+      height: 180px;  /* Reduced from 240px */
+      flex: 0 0 180px;
+    }
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+    }
+    .image-label {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.9em;
+      white-space: nowrap;
+    }
+    .source-images-title {
+        text-align: center;
+        color: #4a4a4a;
+        margin-top: 35px;
+        font-size: 1.5em;  /* Increased from 1.2em */
+        font-weight: 600;  /* Added font weight */
+        margin-bottom: 10px;
+        font-family: 'Google Sans', sans-serif;  /* Match your website's font if needed */
+    }
+    .slideshow-section-title {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #363636;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    .video-note {
+        text-align: center;
+        color: #666;
+        margin: 20px auto;
+        padding: 15px 25px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        max-width: 800px;
+        line-height: 1.6;
+        font-size: 0.9em;
+    }
+
+    .video-note span.green {
+        color: #32CD32;
+        font-weight: bold;
+    }
+
+    .video-note span.red {
+        color: #FF0000;
+        font-weight: bold;
+    }
+
+    /* .gs-image-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      margin-bottom: 1rem;
+    }
+
+    .gs-image-wrapper {
+      width: 30%; 
+      display: flex;
+      justify-content: center;
+    }
+
+    .gs-image-grid img {
+      width: 100%;  
+      height: auto;
+      object-fit: cover;
+    }
+
+    .gs-image-caption {
+      margin: 0;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    } */
+
+</style>
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Generating In-the-Wild Scenes with KeyFrame-Conditioned Videos</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://genechou.com/">Gene Chou</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://kai-46.github.io/website/">Kai Zhang</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sai-bi.github.io/">Sai Bi</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.cs.unc.edu/~airsplay/">Hao Tan</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://zexiangxu.github.io">Zexiang Xu</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://luanfujun.com">Fujun Luan</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.cs.cornell.edu/~bharathh/">Bharath Hariharan</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.cs.cornell.edu/~snavely/">Noah Snavely</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Cornell University,</span>
+            <span class="author-block"><sup>2</sup>Adobe Research</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Supp (coming soon)</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://github.com/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Gallery</span>
+                  </a>
+              </span>
+
+              <h2 class="subtitle is-size-4 has-text-centered"> arXiv 2024 </h2>
+
+              <!-- Code Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- Phototourism Data Slideshow -->
+      <!-- <h2 class="slideshow-section-title">Internet Photo Collections from the Phototourism Dataset</h2> -->
+      <div class="slideshow-container" id="pt-slideshow">
+        <div class="counter">Scene 1/N</div>
+        <button class="nav-button prev-button">←</button>
+        <button class="nav-button next-button">→</button>
+        <div class="video-container">
+          <video playsinline muted>
+            <source src="" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="video-note">
+            The generated video simulates a camera movement linking all input images, progressing from input 1 to n.<br>
+            The <span class="green">green border</span> denotes the first video frame, which should correspond to the first input image.<br>
+            The <span class="red">red border</span> denotes the last video frame, which should correspond to the last input image.<br>
+        </div>
+        <div class="source-images">
+          <div class="image-grid"></div>
+          <h3 class="source-images-title">Unposed internet photos from the Phototourism Dataset</h3>
+        </div>
+      </div>
+
+      <!-- RE10K Data Slideshow -->
+      <!-- <h2 class="slideshow-section-title">RE10K Dataset</h2> -->
+      <div class="slideshow-container" id="re10k-slideshow">
+        <div class="counter">Scene 1/N</div>
+        <button class="nav-button prev-button">←</button>
+        <button class="nav-button next-button">→</button>
+        <div class="video-container">
+          <video playsinline muted>
+            <source src="" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="video-note">
+            The generated video simulates a camera movement linking all input images, progressing from input 1 to n.<br>
+            The <span class="green">green border</span> denotes the first video frame, which should correspond to the first input image.<br>
+            The <span class="red">red border</span> denotes the last video frame, which should correspond to the last input image.<br>
+        </div>
+        <div class="source-images">
+          <div class="image-grid"></div>
+          <h3 class="source-images-title">Unposed photos from the Re10k Dataset</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We address the problem of generating videos from in-the-wild, unposed images.
+            The input is internet photos of a scene with illumination variations and occlusions, which serve as start and end viewpoints. 
+            The output is interpolated views consistent in appearance and geometry. 
+            The main challenge is that there is no ground-truth data with internet photos as keyframes paired with clean intermediate video frames for supervised training. Thus, we design a self-supervised method that jointly trains on and benefits from both videos and multiview internet photos even though they are disjoint in scenes. Importantly, we do not require any 3D supervision such as camera parameters during training or testing.
+            We validate that our method outperforms even commercial models in terms of consistency and 3D-awareness. 
+            Densely generated frames implicitly represent a 3D scene, providing an alternative to repeated renderings for applications such as simulations and virtual walkthroughs.
+            Furthermore, we show our model benefits applications that require 3D control such as novel view synthesis via gaussian splatting. 
+            Our results suggest that we can scale up scene-level 3D learning using only 2D data such as videos and minimally annotated internet photos, which is almost unlimited. 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section style="margin-bottom: -50px;" class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="columns is-centered has-text-centered">
+        <h2 class="title is-3">Self-Supervised Learning without 3D Supervision</h2>
+      </div>
+          <p>
+            Even though we do not have overlapping scenes between our internet photo datasets and video datasets, we can train each with a separate objective but on the same model.
+          </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-4">Multiview Inpainting of Internet Photos</h2>
+          <p>
+            Given n condition images and a target image, we mask 80% of the target and perturb and denoise only the masked regions. 
+            The model identifies the scene from the conditions, and figures out the pose, illumination, and composition from the unmasked pixels of the target. 
+            This task trains the model to become 3D-aware and learn a strong appearance prior.
+          </p>
+          <img src="./static/images/inpainting.png"/>
+        </div>
+      </div>
+    
+      <div class="column">
+        <h2 class="title is-4">View Interpolation of Videos</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              Given a video sequence, we perturb and denoise the intermediate frames. This teaches the model to interpolate between keyframes and produce a smooth camera motion without camera parameters.
+              Regardless of the number of keyframes, all intermediate frames are denoised / generated in a single pass. 
+            </p>
+            <img src="./static/images/view_interp.png"/>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section style="margin-top: -50px;"class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="columns is-centered has-text-centered">
+        <h2 class="title is-4">Model Architecture</h2>
+      </div>
+          <p>
+            We finetune from a 5B decoder-only latent Diffusion Transformer (DiT). Each GPU and its corresponding CPU processes load different configurations, including data sources, number of images sampled, batch sizes, and training objectives.
+            Left is training and right is inference.
+          </p>
+          <img style="margin-top: 10px;" src="./static/images/arch.png"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section" style="margin-bottom: 10px; padding-bottom: 0px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="hero body">
+        <div class="columns is-centered has-text-centered">
+          <h2 class="title is-3">Qualitative Comparisons</h2>
+        </div>
+        <div class="comparison-slideshow-container" id="comparison-slideshow">
+          <div class="counter">Scene 1/N</div>
+          <button class="nav-button prev-button">←</button>
+          <button class="nav-button next-button">→</button>
+          
+          <h3 class="source-images-title">Input Images</h3>
+          <div class="source-images">
+            <div class="image-grid"></div>
+          </div>
+        
+          <div class="comparison-container">
+            <!-- Top row -->
+            <div class="comparison-row">
+              <div class="video-column">
+                <h4 class="method-label">FLAVR</h4>
+                <div class="video-wrapper">
+                  <video playsinline muted>
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+              <div class="video-column">
+                <h4 class="method-label">LDMVFI</h4>
+                <div class="video-wrapper">
+                  <video playsinline muted>
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+              <div class="video-column">
+                <h4 class="method-label">FILM</h4>
+                <div class="video-wrapper">
+                  <video playsinline muted>
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Bottom row -->
+            <div class="comparison-row">
+              <div class="video-column">
+                <h4 class="method-label">Video-Only</h4>
+                <div class="video-wrapper">
+                  <video playsinline muted>
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+              <div class="video-column">
+                <h4 class="method-label">LUMA</h4>
+                <div class="video-wrapper">
+                  <video playsinline muted>
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+              <div class="video-column">
+                <h4 class="method-label">Ours</h4>
+                <div class="video-wrapper">
+                  <video playsinline muted>
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="video-note">
+            The generated videos simulate camera movements linking all input images, from input 1 to n.<br>
+            The <span class="green">green border</span> denotes the first video frame, which should correspond to the first input image.<br>
+            The <span class="red">red border</span> denotes the last video frame, which should correspond to the last input image.<br>
+          </div>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .comparison-slideshow-container {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    padding: 20px;
+  }
+  
+  .comparison-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 20px 0;
+  }
+  
+  .comparison-row {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .comparison-slideshow-container .video-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .method-label {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .comparison-slideshow-container .video-wrapper {
+    width: 100%;
+    position: relative;
+  }
+  
+  .comparison-slideshow-container .video-wrapper video {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border: 4px solid transparent;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+  }
+  
+  .comparison-slideshow-container .video-wrapper video.highlight-start {
+    border-color: greenyellow;
+  }
+  
+  .comparison-slideshow-container .video-wrapper video.highlight-end {
+    border-color: red;
+  }
+  
+  /* The rest of your existing styles... */
+  </style>
+
+<section class="section" style="margin-bottom: 10px; padding-bottom: 0px;">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="columns is-centered has-text-centered">
+        <h2 class="title is-3">Applications</h2>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4">3D Gaussian Splatting</h2>
+        <p class="description" style="margin-bottom: 3rem;">We run InstantSplat on internet photos (left) vs our generated frames (right).</p>
+        
+        <div class="video-container">
+          <div class="video-column">
+            <div class="images-section" style="margin-bottom: -100px; margin-top: 20px">
+              <p class="gs-image-caption">Input Images</p>
+              <div class="gs-image-grid">
+                <div class="gs-image-wrapper">
+                  <img src="./static/videos/brand/0.jpg" alt="Left comparison image 1" />
+                </div>
+                <div class="gs-image-wrapper">
+                  <img src="./static/videos/brand/1.jpg" alt="Left comparison image 2" />
+                </div>
+                <div class="gs-image-wrapper">
+                  <img src="./static/videos/brand/2.jpg" alt="Left comparison image 3" />
+                </div>
+              </div>
+            </div>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline>
+                <source src="./static/videos/brand.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          
+          <div class="video-column">
+            <div class="images-section" style="margin-bottom: -100px; margin-top: 20px">
+              <p class="gs-image-caption">Input Images</p>
+              <div class="gs-image-grid">
+                <div class="gs-image-wrapper">
+                  <img src="./static/videos/british/0.jpg" alt="Right comparison image 1" />
+                </div>
+                <div class="gs-image-wrapper">
+                  <img src="./static/videos/british/1.jpg" alt="Right comparison image 2" />
+                </div>
+                <div class="gs-image-wrapper">
+                  <img src="./static/videos/british/2.jpg" alt="Right comparison image 3" />
+                </div>
+              </div>
+            </div>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline>
+                <source src="./static/videos/british.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .video-container {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .video-column {
+      flex: 1;
+    }
+
+    .images-section {
+      margin-bottom: 2rem;
+    }
+
+    .gs-image-grid {
+      display: flex;  /* Changed from grid to flex */
+      gap: 4px;
+      margin-bottom: 1rem;
+      justify-content: flex-start;
+    }
+
+    .gs-image-wrapper {
+      width: 30%;  /* This will now work with flex layout */
+      display: flex;
+      justify-content: center;
+    }
+
+    .gs-image-grid img {
+      width: 100%;  /* Take full width of wrapper */
+      height: auto;
+      object-fit: cover;
+    }
+
+    .gs-image-caption {
+      margin: 0;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</section>
+
+<section class="section" style="margin-top: -100px">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4">Point Clouds</h2>
+        <p class="description" style="margin-bottom: 3rem;">We also find that our generated frames can help COLMAP and DUSt3R.</p>
+        
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="columns is-centered has-text-centered">
+        <h2 class="title is-3">Conclusion</h2>
+      </div>
+          <ol>
+            <li>Multitask learning: Our final task could be considered an emergent capability from multitask learning, as it is not explicitly trained for but requires the combined knowledge learned from both objectives.
+                Furthermore, our multiview inpainting objective helps the view interpolation objective generalize to wide-baselines, showing that the model can transfer knowledge across tasks.
+            </li>
+            <li>Scaling with videos: We don't believe purely scaling video models will solve most learning tasks, as even the most advanced video models today have trouble understanding physics or layouts of scenes. 
+              However, rather than incorporating conditions such as camera poses which are not scalable, we jointly trained a 3D-aware objective that is as scalable as videos. 
+              We suggest that this concept can be applied to other tasks as well, such as 3D reconstruction.</li>
+            <li>Representing 3D with videos: While videos are unlikely to replace conventional representations like meshes in traditional computer graphics, they are a promising alternative for tasks requiring scene-level understanding, such as view synthesis and simulations. 
+              This work suggests that we can achieve robust 3D scene representations without the constraints of inductive biases. </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="columns is-centered has-text-centered">
+        <h2 class="title is-3">Acknowledgments</h2>
+      </div>
+          <p>
+            This work was funded in part by the National Science Foundation (IIS-2008313, IIS-2211259, IIS-2212084). Gene Chou was funded by a NSF Graduate Research Fellowship.
+          </p>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+    @misc{
+      chou2024kfcw,
+      title={KFC-W: Generating In-the-Wild Scenes with KeyFrame-Conditioned Videos}, 
+      author={Gene Chou and Kai Zhang and Sai Bi and Hao Tan and Zexiang Xu and Fujun Luan and Bharath Hariharan and Noah Snavely},
+      year={2024},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/...}, 
+    }
+    </code></pre>
+  </div>
+</section>
+
+
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./MegaScenes_paper_v1.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/MegaScenes/dataset" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is borrowed from <a href="https://nerfies.github.io/">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- loads qualitativeComparisons variable -->
+<script src="./static/results/qualitative_comparisons.js"></script>
+
+<script>
+// Add ComparisonVideoController class
+class ComparisonVideoController {
+  constructor(videoElement, referenceVideo) {
+    this.video = videoElement;
+    this.referenceVideo = referenceVideo;
+    this.endPauseTriggered = false;
+    this.isWaitingToRestart = false;
+    this.initialize();
+    this.setupVisibilityObserver();
+  }
+
+  initialize() {
+    this.video.removeAttribute('loop');
+    this.video.addEventListener('ended', () => this.handleVideoEnded());
+    this.video.addEventListener('timeupdate', () => this.checkForEndPause());
+    this.video.addEventListener('loadedmetadata', () => this.setupInitialPause());
+  }
+
+  setupVisibilityObserver() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (!this.isWaitingToRestart && !this.endPauseTriggered) {
+            this.video.play();
+          }
+        } else {
+          this.video.pause();
+        }
+      });
+    }, { threshold: 0.5 });
+
+    observer.observe(this.video);
+  }
+
+  adjustPlaybackRate() {
+    if (this.referenceVideo) {
+      const referenceSpeed = this.referenceVideo.duration;
+      const currentSpeed = this.video.duration;
+      this.video.playbackRate = currentSpeed / referenceSpeed;
+    }
+  }
+
+  checkForEndPause() {
+    const timeRemaining = this.video.duration - this.video.currentTime;
+    if (timeRemaining <= 0.1 && !this.endPauseTriggered) {
+      this.triggerEndPause();
+    }
+  }
+
+  triggerEndPause() {
+    if (this.endPauseTriggered) return;
+    this.endPauseTriggered = true;
+
+    this.video.pause();
+    this.video.classList.add('highlight-end', 'paused');
+
+    setTimeout(() => {
+      this.video.classList.remove('highlight-end', 'paused');
+      this.restartVideo();
+    }, 500);
+  }
+
+  handleVideoEnded() {
+    this.endPauseTriggered = false;
+  }
+
+  restartVideo() {
+    if (this.isWaitingToRestart) return;
+    this.isWaitingToRestart = true;
+
+    this.video.currentTime = 0;
+    this.video.pause();
+    this.video.classList.add('highlight-start', 'paused');
+
+    setTimeout(() => {
+      this.video.classList.remove('highlight-start', 'paused');
+      this.video.play();
+      this.isWaitingToRestart = false;
+      this.endPauseTriggered = false;
+    }, 500);
+  }
+
+  setupInitialPause() {
+    this.video.pause();
+    this.video.currentTime = 0;
+    this.video.classList.add('highlight-start', 'paused');
+    this.adjustPlaybackRate();
+
+    setTimeout(() => {
+      this.video.classList.remove('highlight-start', 'paused');
+      this.video.play();
+    }, 500);
+  }
+}
+
+// Add ComparisonSlideshow class
+class ComparisonSlideshow {
+  constructor(containerId, comparisons) {
+    this.currentIndex = 0;
+    this.container = document.getElementById(containerId);
+    this.comparisons = comparisons;
+    
+    // Get all video elements
+    this.videos = Array.from(this.container.querySelectorAll('.video-wrapper video'));
+    
+    // Use the "ours" video (last one) as reference
+    const referenceVideo = this.videos[this.videos.length - 1];
+    
+    // Initialize video controllers
+    this.videoControllers = this.videos.map(video => 
+      new ComparisonVideoController(video, video === referenceVideo ? null : referenceVideo)
+    );
+
+    this.counter = this.container.querySelector('.counter');
+    this.imageGrid = this.container.querySelector('.image-grid');
+
+    this.container.querySelector('.prev-button').addEventListener('click', () => this.previous());
+    this.container.querySelector('.next-button').addEventListener('click', () => this.next());
+
+    this.updateSlide();
+  }
+
+  updateSlide() {
+    const currentComparison = this.comparisons[this.currentIndex];
+    
+    // Update counter
+    this.counter.textContent = `Scene ${this.currentIndex + 1}/${this.comparisons.length}`;
+    
+    // Update videos
+    this.videos.forEach((video, idx) => {
+      video.src = currentComparison.videos[idx];
+      video.load();
+    });
+    
+    // Update images grid
+    this.imageGrid.innerHTML = currentComparison.images.map((image, idx) => `
+      <div class="image-container">
+        <img src="${image}" alt="Input ${idx + 1}">
+        <div class="image-label">Input ${idx + 1}</div>
+      </div>
+    `).join('');
+  }
+
+  previous() {
+    this.currentIndex = (this.currentIndex === 0) ? this.comparisons.length - 1 : this.currentIndex - 1;
+    this.updateSlide();
+  }
+
+  next() {
+    this.currentIndex = (this.currentIndex === this.comparisons.length - 1) ? 0 : this.currentIndex + 1;
+    this.updateSlide();
+  }
+}
+
+
+
+
+
+
+
+
+  // teasers 
+  // Filter to only keep "ours" videos
+  const comparisons = [
+  {
+    "id": "scene1",
+    "title": "Scene 1",
+    "images": [
+      "static/results/pt/all_sparse_views/sacre_coeur/views_2_2/images/18025503_3440119974.jpg",
+      "static/results/pt/all_sparse_views/sacre_coeur/views_2_2/images/70860676_2671019430.jpg"
+    ],
+    "videos": [
+      "static/results/pt/luma_generations/sacre_coeur/views_2_2/stitched.mp4",
+      "static/results/pt/ours_generations/2/44_0.mp4"
+    ]
+  },
+  {
+    "id": "scene2",
+    "title": "Scene 2",
+    "images": [
+      "static/results/re10k/all_sparse_views/0043978734eec081/views_5_0/0043978734eec081_00000000.png",
+      "static/results/re10k/all_sparse_views/0043978734eec081/views_5_0/0043978734eec081_00000017.png",
+      "static/results/re10k/all_sparse_views/0043978734eec081/views_5_0/0043978734eec081_00000035.png",
+      "static/results/re10k/all_sparse_views/0043978734eec081/views_5_0/0043978734eec081_00000052.png",
+      "static/results/re10k/all_sparse_views/0043978734eec081/views_5_0/0043978734eec081_00000070.png"
+    ],
+    "videos": [
+      "static/results/re10k/luma_generations/0043978734eec081/views_5_0/stitched.mp4",
+      "static/results/re10k/ours_generations/5/18_0.mp4"
+    ]
+  },
+  {
+    "id": "scene3",
+    "title": "Scene 3",
+    "images": [
+      "static/results/pt/all_sparse_views/temple_nara_japan/views_2_1/images/87319938_8739757321.jpg",
+      "static/results/pt/all_sparse_views/temple_nara_japan/views_2_1/images/89263705_7055034603.jpg"
+    ],
+    "videos": [
+      "static/results/pt/luma_generations/temple_nara_japan/views_2_1/stitched.mp4",
+      "static/results/pt/ours_generations/2/58_1.mp4"
+    ]
+  },
+  {
+    "id": "scene4",
+    "title": "Scene 4",
+    "images": [
+      "static/results/re10k/all_sparse_views/01aaf4ebb084dc16/views_5_0/01aaf4ebb084dc16_00000085.png",
+      "static/results/re10k/all_sparse_views/01aaf4ebb084dc16/views_5_0/01aaf4ebb084dc16_00000125.png",
+      "static/results/re10k/all_sparse_views/01aaf4ebb084dc16/views_5_0/01aaf4ebb084dc16_00000165.png",
+      "static/results/re10k/all_sparse_views/01aaf4ebb084dc16/views_5_0/01aaf4ebb084dc16_00000205.png",
+      "static/results/re10k/all_sparse_views/01aaf4ebb084dc16/views_5_0/01aaf4ebb084dc16_00000245.png"
+    ],
+    "videos": [
+      "static/results/re10k/ours_generations/5/135_0.mp4",
+      "static/results/re10k/luma_generations/01aaf4ebb084dc16/views_5_0/stitched.mp4"
+    ]
+  }
+];
+
+  // Split comparisons into PT and RE10K
+  const ptComparisons = comparisons
+    .filter(comp => comp.videos[0].includes('/pt/'))
+    .map(comp => ({
+        ...comp,
+        video: comp.videos.find(v => v.includes('ours_generations'))
+    }));
+
+const re10kComparisons = comparisons
+    .filter(comp => comp.videos[0].includes('/re10k/'))
+    .map(comp => ({
+        ...comp,
+        video: comp.videos.find(v => v.includes('ours_generations'))
+    }));
+
+    class VideoController {
+      constructor(videoElement) {
+          this.video = videoElement;
+          this.endPauseTriggered = false;
+          this.isWaitingToRestart = false;
+          this.initialize();
+          this.setupVisibilityObserver();
+      }
+
+      initialize() {
+          this.video.removeAttribute('loop');
+          this.video.addEventListener('ended', () => this.handleVideoEnded());
+          this.video.addEventListener('timeupdate', () => this.checkForEndPause());
+          this.video.addEventListener('loadedmetadata', () => this.setupInitialPause());
+      }
+
+      setupVisibilityObserver() {
+          const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                      // Video is visible
+                      if (!this.isWaitingToRestart && !this.endPauseTriggered) {
+                          this.video.play();
+                      }
+                  } else {
+                      // Video is not visible
+                      this.video.pause();
+                  }
+              });
+          }, { threshold: 0.5 }); // Trigger when 50% of the video is visible
+
+          observer.observe(this.video);
+      }
+
+      checkForEndPause() {
+          const timeRemaining = this.video.duration - this.video.currentTime;
+          if (timeRemaining <= 0.1 && !this.endPauseTriggered) {
+              this.triggerEndPause();
+          }
+      }
+
+      triggerEndPause() {
+          if (this.endPauseTriggered) return;
+          this.endPauseTriggered = true;
+
+          this.video.pause();
+          this.video.classList.add('highlight-end', 'paused');
+
+          setTimeout(() => {
+              this.video.classList.remove('highlight-end', 'paused');
+              this.restartVideo();
+          }, 500);
+      }
+
+      handleVideoEnded() {
+          this.endPauseTriggered = false;
+      }
+
+      restartVideo() {
+          if (this.isWaitingToRestart) return;
+          this.isWaitingToRestart = true;
+
+          this.video.currentTime = 0;
+          this.video.pause();
+          this.video.classList.add('highlight-start', 'paused');
+
+          setTimeout(() => {
+              this.video.classList.remove('highlight-start', 'paused');
+              this.video.play();
+              this.isWaitingToRestart = false;
+              this.endPauseTriggered = false;
+          }, 500);
+      }
+
+      setupInitialPause() {
+          this.video.pause();
+          this.video.currentTime = 0;
+          this.video.classList.add('highlight-start', 'paused');
+
+          setTimeout(() => {
+              this.video.classList.remove('highlight-start', 'paused');
+              this.video.play();
+          }, 500);
+      }
+  }
+
+  class Slideshow {
+        constructor(containerId, videos) {
+            this.currentIndex = 0;
+            this.container = document.getElementById(containerId);
+            this.videos = videos;
+            this.video = this.container.querySelector('.video-container video');
+            this.videoController = new VideoController(this.video);
+            this.counter = this.container.querySelector('.counter');
+            this.imageGrid = this.container.querySelector('.image-grid');
+
+            this.container.querySelector('.prev-button').addEventListener('click', () => this.previous());
+            this.container.querySelector('.next-button').addEventListener('click', () => this.next());
+
+            this.updateSlide();
+        }
+
+        updateSlide() {
+        const currentVideo = this.videos[this.currentIndex];
+        
+        // Update counter
+        this.counter.textContent = `Scene ${this.currentIndex + 1}/${this.videos.length}`;
+        
+        // Update video
+        this.video.src = currentVideo.video;
+        this.video.load();
+        
+        // Update images grid
+        this.imageGrid.innerHTML = currentVideo.images.map((image, idx) => `
+            <div class="image-container">
+                <img src="${image}" alt="Input ${idx + 1}">
+                <div class="image-label">Input ${idx + 1}</div>
+            </div>
+        `).join('');
+    }
+
+        previous() {
+            this.currentIndex = (this.currentIndex === 0) ? this.videos.length - 1 : this.currentIndex - 1;
+            this.updateSlide();
+        }
+
+        next() {
+            this.currentIndex = (this.currentIndex === this.videos.length - 1) ? 0 : this.currentIndex + 1;
+            this.updateSlide();
+        }
+    }
+
+    // Initialize both slideshows when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+    new Slideshow('pt-slideshow', ptComparisons);
+    new Slideshow('re10k-slideshow', re10kComparisons);
+    new ComparisonSlideshow('comparison-slideshow', qualitativeComparisons);
+});
+</script>
+
+
+
+</body>
+</html>
