@@ -317,7 +317,7 @@
     <div class="columns is-centered">
       <div class="hero body">
         <div class="columns is-centered has-text-centered">
-          <h2 class="title is-3">Qualitative Comparisons</h2>
+          <h2 class="title is-3">Qualitative Comparisons (Paper Section 4.1)</h2>
         </div>
         <div class="comparison-slideshow-container" id="comparison-slideshow">
           <div class="counter">Scene 1/N</div>
@@ -467,13 +467,13 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-4">3D Gaussian Splatting</h2>
-        <p class="description" style="margin-bottom: 1rem;">We run InstantSplat on internet photos vs our generated frames.</p>
+        <h2 class="title is-4">3D Gaussian Splatting via InstantSplat (Paper Section 4.3)</h2>
         
-        <div class="video-container">
-          <div class="video-column">
-            <div class="images-section" style="margin-bottom: 50px; margin-top: 20px">
-              <p class="gs-image-caption">Input Images</p>
+        <div class="applications-container">
+          <!-- First Example -->
+          <div class="example-block">
+            <div class="images-section">
+              <p class="gs-image-caption" style="font-size: 1.5rem">Input Images</p>
               <div class="gs-image-grid">
                 <div class="gs-image-wrapper">
                   <img src="./static/videos/brand/0.jpg" alt="Left comparison image 1" />
@@ -486,19 +486,19 @@
                 </div>
               </div>
             </div>
-        
+            
             <div class="video-with-caption">
-              <p class="caption">Left: on internet photos;  Right: on generated frames</p>
+              <p class="caption">Left: on internet photos; Right: on generated frames</p>
               <video autoplay controls muted loop playsinline>
                 <source src="./static/videos/brand.mp4" type="video/mp4">
               </video>
-              
             </div>
           </div>
-          
-          <div class="video-column">
-            <div class="images-section" style="margin-bottom: 50px; margin-top: 20px">
-              <p class="gs-image-caption">Input Images</p>
+
+          <!-- Second Example -->
+          <div class="example-block">
+            <div class="images-section">
+              <p class="gs-image-caption" style="font-size: 1.5rem">Input Images</p>
               <div class="gs-image-grid">
                 <div class="gs-image-wrapper">
                   <img src="./static/videos/british/0.jpg" alt="Right comparison image 1" />
@@ -511,89 +511,101 @@
                 </div>
               </div>
             </div>
-
             
             <div class="video-with-caption">
-              <p class="caption">Left: on internet photos;  Right: on generated frames</p>
+              <p class="caption">Left: on internet photos; Right: on generated frames</p>
               <video autoplay controls muted loop playsinline>
                 <source src="./static/videos/british.mp4" type="video/mp4">
               </video>
-              
             </div>
-
-
           </div>
         </div>
+
       </div>
     </div>
   </div>
 
   <style>
+    .applications-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
 
-.video-with-caption {
-  width: 100%;
-  max-width: 480px;  /* Adjust this value as needed */
-  margin: 0 auto;
-  position: relative;
-}
-
-.video-with-caption video {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.video-with-caption .caption {
-  margin-top: 8px;
-  color: #666;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-/* If you're using the existing video-container class */
-.video-container {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-.video-column {
-  flex: 1;
-}
-
-/* Ensure videos maintain aspect ratio */
-video {
-  max-width: 100%;
-  height: auto;
-}
+    .example-block {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
 
     .images-section {
-      margin-bottom: 2rem;
-    }
-
-    .gs-image-grid {
-      display: flex;  /* Changed from grid to flex */
-      gap: 4px;
-      margin-bottom: 1rem;
-      justify-content: flex-start;
-    }
-
-    .gs-image-wrapper {
-      width: 30%;  /* This will now work with flex layout */
-      display: flex;
-      justify-content: center;
-    }
-
-    .gs-image-grid img {
-      width: 100%;  /* Take full width of wrapper */
-      height: auto;
-      object-fit: cover;
+      width: 100%;
+      margin-bottom: 1.5rem;
     }
 
     .gs-image-caption {
-      margin: 0;
+      text-align: center;
       font-size: 0.9rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      color: #666;
+    }
+
+    .gs-image-grid {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .gs-image-wrapper {
+      width: calc(33.33% - 0.67rem);
+      max-width: 240px;
+      aspect-ratio: 1;
+    }
+
+    .gs-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .video-with-caption {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .video-with-caption video {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+    }
+
+    .caption {
+      text-align: center;
+      color: #666;
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .gs-image-wrapper {
+        max-width: 160px;
+      }
+      
+      .example-block {
+        max-width: 95%;
+      }
     }
   </style>
 </section>
