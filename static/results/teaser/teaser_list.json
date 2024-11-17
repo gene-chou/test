@@ -1,14 +1,14 @@
 [
   {
-    "id": "scene1",
-    "title": "Scene 1",
+    "id": "scene0",
+    "title": "Scene 0",
     "images": [
-      "static/results/pt/all_sparse_views/sacre_coeur/views_2_2/images/18025503_3440119974.jpg",
-      "static/results/pt/all_sparse_views/sacre_coeur/views_2_2/images/70860676_2671019430.jpg"
+      "static/results/pt/all_sparse_views/sacre_coeur/views_2_1/images/02580991_8300101521.jpg",
+      "static/results/pt/all_sparse_views/sacre_coeur/views_2_1/images/03654060_2228949569.jpg"
     ],
     "videos": [
-      "static/results/pt/luma_generations/sacre_coeur/views_2_2/stitched.mp4",
-      "static/results/pt/ours_generations/2/44_0.mp4"
+      "static/results/teaser/pt_luma_generations/sacre_coeur/views_2_1/stitched.mp4",
+      "static/results/pt/ours_generations/2/43_0.mp4"
     ]
   },
   {
@@ -22,7 +22,7 @@
       "static/results/re10k/all_sparse_views/0043978734eec081/views_5_0/0043978734eec081_00000070.png"
     ],
     "videos": [
-      "static/results/re10k/luma_generations/0043978734eec081/views_5_0/stitched.mp4",
+      "static/results/teaser/re10k_luma_generations/0043978734eec081/views_5_0/stitched.mp4",
       "static/results/re10k/ours_generations/5/18_0.mp4"
     ]
   },
@@ -34,7 +34,7 @@
       "static/results/pt/all_sparse_views/temple_nara_japan/views_2_1/images/89263705_7055034603.jpg"
     ],
     "videos": [
-      "static/results/pt/luma_generations/temple_nara_japan/views_2_1/stitched.mp4",
+      "static/results/teaser/pt_luma_generations/temple_nara_japan/views_2_1/stitched.mp4",
       "static/results/pt/ours_generations/2/58_1.mp4"
     ]
   },
@@ -50,7 +50,7 @@
     ],
     "videos": [
       "static/results/re10k/ours_generations/5/135_0.mp4",
-      "static/results/re10k/luma_generations/01aaf4ebb084dc16/views_5_0/stitched.mp4"
+      "static/results/teaser/re10k_luma_generations/01aaf4ebb084dc16/views_5_0/stitched.mp4"
     ]
   },
   {
@@ -62,7 +62,7 @@
     ],
     "videos": [
       "static/results/pt/ours_generations/2/39_1.mp4",
-      "static/results/pt/luma_generations/reichstag/views_2_0/stitched.mp4"
+      "static/results/teaser/pt_luma_generations/reichstag/views_2_0/stitched.mp4"
     ]
   },
   {
@@ -76,7 +76,7 @@
     ],
     "videos": [
       "static/results/re10k/ours_generations/4/3_0.mp4",
-      "static/results/re10k/luma_generations/000db54a47bd43fe/views_4_0/stitched.mp4"
+      "static/results/teaser/re10k_luma_generations/000db54a47bd43fe/views_4_0/stitched.mp4"
     ]
   },
   {
@@ -87,8 +87,20 @@
       "static/results/pt/all_sparse_views/notre_dame_front_facade/views_2_2/images/80749661_7180275066.jpg"
     ],
     "videos": [
-      "static/results/pt/luma_generations/notre_dame_front_facade/views_2_2/stitched.mp4",
+      "static/results/teaser/pt_luma_generations/notre_dame_front_facade/views_2_2/stitched.mp4",
       "static/results/pt/ours_generations/2/29_1.mp4"
+    ]
+  },
+  {
+    "id": "scene1",
+    "title": "Scene 1",
+    "images": [
+      "static/results/pt/all_sparse_views/sacre_coeur/views_2_2/images/18025503_3440119974.jpg",
+      "static/results/pt/all_sparse_views/sacre_coeur/views_2_2/images/70860676_2671019430.jpg"
+    ],
+    "videos": [
+      "static/results/teaser/pt_luma_generations/sacre_coeur/views_2_2/stitched.mp4",
+      "static/results/pt/ours_generations/2/44_0.mp4"
     ]
   },
   {
@@ -101,7 +113,7 @@
     ],
     "videos": [
       "static/results/pt/ours_generations/3/2_1.mp4",
-      "static/results/pt/luma_generations/brandenburg_gate/views_3_2/stitched.mp4"
+      "static/results/teaser/pt_luma_generations/brandenburg_gate/views_3_2/stitched.mp4"
     ]
   },
   {
@@ -115,7 +127,7 @@
     ],
     "videos": [
       "static/results/re10k/ours_generations/4/108_0.mp4",
-      "static/results/re10k/vid-only_generations/4/108_0.mp4"
+      "static/results/teaser/re10k_luma_generations/01842c6b21e1d679/views_4_0/stitched.mp4"
     ]
   },
   {
@@ -128,7 +140,7 @@
     ],
     "videos": [
       "static/results/pt/ours_generations/3/18_1.mp4",
-      "static/results/pt/luma_generations/lincoln_memorial_statue/views_3_0/stitched.mp4"
+      "static/results/teaser/pt_luma_generations/lincoln_memorial_statue/views_3_0/stitched.mp4"
     ]
   },
   {
@@ -139,7 +151,7 @@
       "static/results/pt/all_sparse_views/st_pauls_cathedral/views_2_0/images/78582770_410620191.jpg"
     ],
     "videos": [
-      "static/results/pt/luma_generations/st_pauls_cathedral/views_2_0/stitched.mp4",
+      "static/results/teaser/pt_luma_generations/st_pauls_cathedral/views_2_0/stitched.mp4",
       "static/results/pt/ours_generations/2/48_0.mp4"
     ]
   },
@@ -154,7 +166,7 @@
       "static/results/re10k/all_sparse_views/015d8a2a2834d38c/views_5_0/015d8a2a2834d38c_00000220.png"
     ],
     "videos": [
-      "static/results/re10k/luma_generations/015d8a2a2834d38c/views_5_0/stitched.mp4",
+      "static/results/teaser/re10k_luma_generations/015d8a2a2834d38c/views_5_0/stitched.mp4",
       "static/results/re10k/ours_generations/5/99_0.mp4"
     ]
   },
@@ -169,7 +181,7 @@
       "static/results/re10k/all_sparse_views/000c3ab189999a83/views_5_0/000c3ab189999a83_00000277.png"
     ],
     "videos": [
-      "static/results/re10k/luma_generations/000c3ab189999a83/views_5_0/stitched.mp4",
+      "static/results/teaser/re10k_luma_generations/000c3ab189999a83/views_5_0/stitched.mp4",
       "static/results/re10k/ours_generations/5/0_0.mp4"
     ]
   },
@@ -182,7 +194,7 @@
       "static/results/re10k/all_sparse_views/01a2277ee817b310/views_3_0/01a2277ee817b310_00000100.png"
     ],
     "videos": [
-      "static/results/re10k/vid-only_generations/3/126_0.mp4",
+      "static/results/teaser/re10k_luma_generations/01a2277ee817b310/views_3_0/stitched.mp4",
       "static/results/re10k/ours_generations/3/126_0.mp4"
     ]
   },
@@ -196,7 +208,7 @@
     ],
     "videos": [
       "static/results/pt/ours_generations/3/0_0.mp4",
-      "static/results/pt/vid-only_generations/3/0_0.mp4"
+      "static/results/teaser/pt_luma_generations/brandenburg_gate/views_3_0/stitched.mp4"
     ]
   },
   {
@@ -208,7 +220,7 @@
       "static/results/pt/all_sparse_views/st_pauls_cathedral/views_3_1/images/64684364_2174886426.jpg"
     ],
     "videos": [
-      "static/results/pt/luma_generations/st_pauls_cathedral/views_3_1/stitched.mp4",
+      "static/results/teaser/pt_luma_generations/st_pauls_cathedral/views_3_1/stitched.mp4",
       "static/results/pt/ours_generations/3/49_1.mp4"
     ]
   },
@@ -223,7 +235,7 @@
     ],
     "videos": [
       "static/results/pt/ours_generations/4/27_0.mp4",
-      "static/results/pt/luma_generations/notre_dame_front_facade/views_4_0/stitched.mp4"
+      "static/results/teaser/pt_luma_generations/notre_dame_front_facade/views_4_0/stitched.mp4"
     ]
   },
   {
@@ -235,7 +247,7 @@
     ],
     "videos": [
       "static/results/pt/ours_generations/2/33_0.mp4",
-      "static/results/pt/luma_generations/pantheon_exterior/views_2_0/stitched.mp4"
+      "static/results/teaser/pt_luma_generations/pantheon_exterior/views_2_0/stitched.mp4"
     ]
   },
   {
@@ -250,7 +262,7 @@
     ],
     "videos": [
       "static/results/re10k/ours_generations/5/138_0.mp4",
-      "static/results/re10k/luma_generations/01b08e2f20321127/views_5_0/stitched.mp4"
+      "static/results/teaser/re10k_luma_generations/01b08e2f20321127/views_5_0/stitched.mp4"
     ]
   },
   {
@@ -261,7 +273,7 @@
       "static/results/pt/all_sparse_views/sacre_coeur/views_2_1/images/03654060_2228949569.jpg"
     ],
     "videos": [
-      "static/results/pt/luma_generations/sacre_coeur/views_2_1/stitched.mp4",
+      "static/results/teaser/pt_luma_generations/sacre_coeur/views_2_1/stitched.mp4",
       "static/results/pt/ours_generations/2/43_0.mp4"
     ]
   },
@@ -274,7 +286,7 @@
       "static/results/pt/all_sparse_views/trevi_fountain/views_3_0/images/75017867_5746101695.jpg"
     ],
     "videos": [
-      "static/results/pt/luma_generations/trevi_fountain/views_3_0/stitched.mp4",
+      "static/results/teaser/pt_luma_generations/trevi_fountain/views_3_0/stitched.mp4",
       "static/results/pt/ours_generations/3/60_1.mp4"
     ]
   },
@@ -286,7 +298,7 @@
       "static/results/pt/all_sparse_views/piazza_san_marco/views_2_1/images/87179181_4063549880.jpg"
     ],
     "videos": [
-      "static/results/pt/luma_generations/piazza_san_marco/views_2_1/stitched.mp4",
+      "static/results/teaser/pt_luma_generations/piazza_san_marco/views_2_1/stitched.mp4",
       "static/results/pt/ours_generations/2/37_0.mp4"
     ]
   },
@@ -300,7 +312,7 @@
     ],
     "videos": [
       "static/results/re10k/ours_generations/3/57_0.mp4",
-      "static/results/re10k/luma_generations/00beb03ef95dc637/views_3_0/stitched.mp4"
+      "static/results/teaser/re10k_luma_generations/00beb03ef95dc637/views_3_0/stitched.mp4"
     ]
   },
   {
@@ -312,9 +324,9 @@
     ],
     "videos": [
       "static/results/re10k/ours_generations/2/105_0.mp4",
-      "static/results/re10k/luma_generations/0181d3b41c2cf87c/views_2_0/stitched.mp4"
+      "static/results/teaser/re10k_luma_generations/0181d3b41c2cf87c/views_2_0/stitched.mp4"
     ]
-  }, 
+  },
   {
     "id": "scene25",
     "title": "Scene 25",
@@ -327,7 +339,7 @@
     ],
     "videos": [
       "static/results/pt/ours_generations/5/39_0.mp4",
-      "static/results/pt/luma_generations/reichstag/views_5_0/stitched.mp4"
+      "static/results/teaser/pt_luma_generations/reichstag/views_5_0/stitched.mp4"
     ]
   }
 ]

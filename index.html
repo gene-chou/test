@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Generating Videos from Unposed Internet Photos">
+  <meta name="description" content="Generating 3D-Consistent Videos from Unposed Internet Photos">
   <meta name="keywords" content="KFC-W, Keyframe-conditioned video generation, Internet Photos, Scaling 3D Learning, Self-supervised learning">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>KFC-W</title>
@@ -73,7 +73,7 @@
       height: 400px;
     }
     .video-container video {
-      width: 384px; 
+      width: 768px; 
       height: 384px;
       object-fit: contain;
       display: block;
@@ -245,12 +245,72 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Scaling Up 3D-Aware Learning With Only Videos and Unposed Internet Photos</h1>
+          <h1 class="title is-1 publication-title">Generating 3D-Consistent Videos from Unposed Internet Photos</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              Anonymous CVPR Submission -- Supplemental Material (Qualitative Results) <br>Paper ID 5733 
+              <a href="https://genechou.com/">Gene Chou</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://kai-46.github.io/website/">Kai Zhang</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sai-bi.github.io/">Sai Bi</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.cs.unc.edu/~airsplay/">Hao Tan</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://zexiangxu.github.io">Zexiang Xu</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://luanfujun.com">Fujun Luan</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.cs.cornell.edu/~bharathh/">Bharath Hariharan</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.cs.cornell.edu/~snavely/">Noah Snavely</a><sup>1</sup>
             </span>
           </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Cornell University,</span>
+            <span class="author-block"><sup>2</sup>Adobe Research</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Supp (coming soon)</span>
+                </a>
+              </span>
+
+              <!-- <span class="link-block">
+                <a href="https://github.com/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Gallery</span>
+                  </a>
+              </span> -->
+
+              <h2 class="subtitle is-size-4 has-text-centered"> arXiv 2024 </h2>
         </div>
       </div>
     </div>
@@ -259,7 +319,7 @@
 
 <section class="hero teaser">
   <div class="container is-max-desktop">
-    <div class="hero-body"><h2 class="title is-3" style="text-align: center;">Generated Videos of Ours (Full)</h2>
+    <!-- <div class="hero-body"><h2 class="title is-3" style="text-align: center;">Generated Videos of Ours (Full)</h2> -->
       <!-- Phototourism Data Slideshow -->
       <!-- <h2 class="slideshow-section-title">Internet Photo Collections from the Phototourism Dataset</h2> -->
       <div class="slideshow-container" id="pt-slideshow">
@@ -309,6 +369,98 @@
   </div>
 </section>
 
+<!-- abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We address the problem of generating videos from unposed internet photos.
+            A handful of input images serve as keyframes, and our model interpolates between them to simulate a path moving between the cameras. 
+            Given random images, a model’s ability to capture underlying geometry, recognize scene identity, and relate frames in terms of camera position and orientation reflects a fundamental understanding of 3D structure and scene layout. However, existing video models such as Luma Dream Machine fail at this task. 
+            We design a self-supervised method that takes advantage of the consistency of videos and variability of multiview internet photos to train a scalable, 3D-aware video model without any 3D annotations such as camera parameters.
+            We validate that our method outperforms commercial models in terms of geometric and appearance consistency. 
+            We also show our model benefits applications that enable camera control, such as 3D Gaussian Splatting. 
+            Our results suggest that we can scale up scene-level 3D learning using only 2D data such as videos and multiview internet photos.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section style="margin-bottom: -50px;" class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="columns is-centered has-text-centered">
+        <h2 class="title is-3">Self-Supervised Learning without 3D Supervision</h2>
+      </div>
+          <p>
+            We design two objectives:
+            1. Multiview inpainting addresses geometric understanding by training the model to extract 3D relationships from wide-baseline, unposed images. 
+            2. View interpolation addresses temporal coherence by training the model to generate smooth, consistent camera trajectories, which is our desired output. 
+          </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-4">Multiview Inpainting of Internet Photos</h2>
+          <!-- <p>
+            Given n condition images and a target image, we mask 80% of the target and perturb and denoise only the masked regions. 
+            The model identifies the scene from the conditions, and figures out the pose, illumination, and composition from the unmasked pixels of the target. 
+            This task trains the model to become 3D-aware and learn a strong appearance prior.
+          </p> -->
+          <img src="./static/images/inpainting.png"/>
+        </div>
+      </div>
+    
+      <div class="column">
+        <h2 class="title is-4">View Interpolation of Videos</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <!-- <p>
+              Given a video sequence, we perturb and denoise the intermediate frames. This teaches the model to interpolate between keyframes and produce a smooth camera motion without camera parameters.
+              Regardless of the number of keyframes, all intermediate frames are denoised / generated in a single pass. 
+            </p> -->
+            <img src="./static/images/view_interp.png"/>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section style="margin-top: -50px;"class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="columns is-centered has-text-centered">
+        <h2 class="title is-4">Model Architecture</h2>
+      </div>
+          <p>
+            We finetune from a 5B decoder-only latent Diffusion Transformer. 
+            Left: training; Right: inference.
+          </p>
+          <img style="margin-top: 10px;" src="./static/images/arch.png"/>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
 
@@ -317,7 +469,7 @@
     <div class="columns is-centered">
       <div class="hero body">
         <div class="columns is-centered has-text-centered">
-          <h2 class="title is-3">Qualitative Comparisons (Paper Section 4.1)</h2>
+          <h2 class="title is-3">Qualitative Comparisons</h2>
         </div>
         <div class="comparison-slideshow-container" id="comparison-slideshow">
           <div class="counter">Scene 1/N</div>
@@ -452,7 +604,6 @@
 
 <section class="section" style="margin-bottom: 10px; padding-bottom: 0px;">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
     <div class="columns is-centered">
       <div class="column is-four-fifths">
         <div class="columns is-centered has-text-centered">
@@ -467,13 +618,26 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-4">3D Gaussian Splatting via InstantSplat (Paper Section 4.3)</h2>
+        <h2 class="title is-4">3D Reconstruction via COLMAP</h2>
+        
+        <img src="static/images/colmap.png" width="60%" style="display: block; margin: 0 auto;">
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4">3D Gaussian Splatting via InstantSplat</h2>
         
         <div class="applications-container">
           <!-- First Example -->
           <div class="example-block">
             <div class="images-section">
-              <p class="gs-image-caption" style="font-size: 1.5rem">Input Images</p>
+              <p class="gs-image-caption" style="font-size: 1.0rem">Input Images</p>
               <div class="gs-image-grid">
                 <div class="gs-image-wrapper">
                   <img src="./static/videos/brand/0.jpg" alt="Left comparison image 1" />
@@ -488,7 +652,7 @@
             </div>
             
             <div class="video-with-caption">
-              <p class="caption">Left: on internet photos; Right: on generated frames</p>
+              <p class="caption">Left: on input images; Right: on generated frames</p>
               <video autoplay controls muted loop playsinline>
                 <source src="./static/videos/brand.mp4" type="video/mp4">
               </video>
@@ -498,7 +662,7 @@
           <!-- Second Example -->
           <div class="example-block">
             <div class="images-section">
-              <p class="gs-image-caption" style="font-size: 1.5rem">Input Images</p>
+              <p class="gs-image-caption" style="font-size: 1.0rem">Input Images</p>
               <div class="gs-image-grid">
                 <div class="gs-image-wrapper">
                   <img src="./static/videos/british/0.jpg" alt="Right comparison image 1" />
@@ -513,7 +677,7 @@
             </div>
             
             <div class="video-with-caption">
-              <p class="caption">Left: on internet photos; Right: on generated frames</p>
+              <p class="caption">Left: on input images; Right: on generated frames</p>
               <video autoplay controls muted loop playsinline>
                 <source src="./static/videos/british.mp4" type="video/mp4">
               </video>
@@ -532,7 +696,7 @@
       gap: 4rem;
       align-items: center;
       width: 100%;
-      max-width: 1200px;
+      max-width: 500px;
       margin: 0 auto;
       padding: 2rem 0;
     }
@@ -548,7 +712,7 @@
 
     .images-section {
       width: 100%;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.0rem;
     }
 
     .gs-image-caption {
@@ -595,7 +759,7 @@
     .caption {
       text-align: center;
       color: #666;
-      font-size: 1.5rem;
+      font-size: 1.0rem;
     }
 
     @media (max-width: 768px) {
@@ -610,9 +774,73 @@
   </style>
 </section>
 
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="columns is-centered has-text-centered">
+        <h2 class="title is-3">Conclusion</h2>
+      </div>
+          <ol>
+            <li>Future Work: There are many avenues for future work, such as scaling up training data to include dynamic objects, 
+              enforcing a stronger constraint on illumination consistency, 
+              and extrapolating to unseen views.
+            </li>
+            <li>Scaling 3D awareness via self-supervised learning: 
+              We posit that brute-force scaling will not help video models understand the physical world, as even the most advanced video models today have difficulty understanding physics or scene layouts. 
+              However, rather than incorporating conditions such as camera poses, which can be difficult to reliably estimate at scale, 
+              we jointly train a scalable 3D-aware objective. 
+              We suggest that this concept can be applied to other tasks as well, such as modeling motion that respects physical constraints. 
+              Additionally, our model generates videos from internet photos even though it never sees this specific input-output pairing during training, suggesting multitask learning leads to emergent capabilities. 
+
+            </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+    @misc{
+      chou2024kfcw,
+      title={KFC-W: Generating In-the-Wild Scenes with KeyFrame-Conditioned Videos}, 
+      author={Gene Chou and Kai Zhang and Sai Bi and Hao Tan and Zexiang Xu and Fujun Luan and Bharath Hariharan and Noah Snavely},
+      year={2024},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/...}, 
+    }
+    </code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./MegaScenes_paper_v1.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is borrowed from <a href="https://nerfies.github.io/">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
 
 <!-- loads qualitativeComparisons variable -->
 <script src="./static/results/qualitative_comparisons.js"></script>
+<script src="./static/results/teaser.js"></script>
 
 <script>
 
@@ -671,354 +899,18 @@ class ComparisonSlideshow {
 
 
   // teasers 
-  // Filter to only keep "ours" videos
-  const comparisons = [
-  {
-    "id": "scene1",
-    "title": "Scene 1",
-    "images": [
-      "static/results/pt/all_sparse_views/sacre_coeur/views_2_2/images/18025503_3440119974.jpg",
-      "static/results/pt/all_sparse_views/sacre_coeur/views_2_2/images/70860676_2671019430.jpg"
-    ],
-    "videos": [
-      "static/results/pt/luma_generations/sacre_coeur/views_2_2/stitched.mp4",
-      "static/results/pt/ours_generations/2/44_0.mp4"
-    ]
-  },
-  {
-    "id": "scene2",
-    "title": "Scene 2",
-    "images": [
-      "static/results/re10k/all_sparse_views/0043978734eec081/views_5_0/0043978734eec081_00000000.png",
-      "static/results/re10k/all_sparse_views/0043978734eec081/views_5_0/0043978734eec081_00000017.png",
-      "static/results/re10k/all_sparse_views/0043978734eec081/views_5_0/0043978734eec081_00000035.png",
-      "static/results/re10k/all_sparse_views/0043978734eec081/views_5_0/0043978734eec081_00000052.png",
-      "static/results/re10k/all_sparse_views/0043978734eec081/views_5_0/0043978734eec081_00000070.png"
-    ],
-    "videos": [
-      "static/results/re10k/luma_generations/0043978734eec081/views_5_0/stitched.mp4",
-      "static/results/re10k/ours_generations/5/18_0.mp4"
-    ]
-  },
-  {
-    "id": "scene3",
-    "title": "Scene 3",
-    "images": [
-      "static/results/pt/all_sparse_views/temple_nara_japan/views_2_1/images/87319938_8739757321.jpg",
-      "static/results/pt/all_sparse_views/temple_nara_japan/views_2_1/images/89263705_7055034603.jpg"
-    ],
-    "videos": [
-      "static/results/pt/luma_generations/temple_nara_japan/views_2_1/stitched.mp4",
-      "static/results/pt/ours_generations/2/58_1.mp4"
-    ]
-  },
-  {
-    "id": "scene4",
-    "title": "Scene 4",
-    "images": [
-      "static/results/re10k/all_sparse_views/01aaf4ebb084dc16/views_5_0/01aaf4ebb084dc16_00000085.png",
-      "static/results/re10k/all_sparse_views/01aaf4ebb084dc16/views_5_0/01aaf4ebb084dc16_00000125.png",
-      "static/results/re10k/all_sparse_views/01aaf4ebb084dc16/views_5_0/01aaf4ebb084dc16_00000165.png",
-      "static/results/re10k/all_sparse_views/01aaf4ebb084dc16/views_5_0/01aaf4ebb084dc16_00000205.png",
-      "static/results/re10k/all_sparse_views/01aaf4ebb084dc16/views_5_0/01aaf4ebb084dc16_00000245.png"
-    ],
-    "videos": [
-      "static/results/re10k/ours_generations/5/135_0.mp4",
-      "static/results/re10k/luma_generations/01aaf4ebb084dc16/views_5_0/stitched.mp4"
-    ]
-  },
-  {
-    "id": "scene5",
-    "title": "Scene 5",
-    "images": [
-      "static/results/pt/all_sparse_views/reichstag/views_2_0/images/64271070_4602086309.jpg",
-      "static/results/pt/all_sparse_views/reichstag/views_2_0/images/77122925_1063274053.jpg"
-    ],
-    "videos": [
-      "static/results/pt/ours_generations/2/39_1.mp4",
-      "static/results/pt/luma_generations/reichstag/views_2_0/stitched.mp4"
-    ]
-  },
-  {
-    "id": "scene6",
-    "title": "Scene 6",
-    "images": [
-      "static/results/re10k/all_sparse_views/000db54a47bd43fe/views_4_0/000db54a47bd43fe_00000019.png",
-      "static/results/re10k/all_sparse_views/000db54a47bd43fe/views_4_0/000db54a47bd43fe_00000057.png",
-      "static/results/re10k/all_sparse_views/000db54a47bd43fe/views_4_0/000db54a47bd43fe_00000095.png",
-      "static/results/re10k/all_sparse_views/000db54a47bd43fe/views_4_0/000db54a47bd43fe_00000133.png"
-    ],
-    "videos": [
-      "static/results/re10k/ours_generations/4/3_0.mp4",
-      "static/results/re10k/luma_generations/000db54a47bd43fe/views_4_0/stitched.mp4"
-    ]
-  },
-  {
-    "id": "scene7",
-    "title": "Scene 7",
-    "images": [
-      "static/results/pt/all_sparse_views/notre_dame_front_facade/views_2_2/images/27335203_487553664.jpg",
-      "static/results/pt/all_sparse_views/notre_dame_front_facade/views_2_2/images/80749661_7180275066.jpg"
-    ],
-    "videos": [
-      "static/results/pt/luma_generations/notre_dame_front_facade/views_2_2/stitched.mp4",
-      "static/results/pt/ours_generations/2/29_1.mp4"
-    ]
-  },
-  {
-    "id": "scene8",
-    "title": "Scene 8",
-    "images": [
-      "static/results/pt/all_sparse_views/brandenburg_gate/views_3_2/images/24838916_1516097177.jpg",
-      "static/results/pt/all_sparse_views/brandenburg_gate/views_3_2/images/55255156_8911548609.jpg",
-      "static/results/pt/all_sparse_views/brandenburg_gate/views_3_2/images/89436585_2728666510.jpg"
-    ],
-    "videos": [
-      "static/results/pt/ours_generations/3/2_1.mp4",
-      "static/results/pt/luma_generations/brandenburg_gate/views_3_2/stitched.mp4"
-    ]
-  },
-  {
-    "id": "scene9",
-    "title": "Scene 9",
-    "images": [
-      "static/results/re10k/all_sparse_views/01842c6b21e1d679/views_4_0/01842c6b21e1d679_00000041.png",
-      "static/results/re10k/all_sparse_views/01842c6b21e1d679/views_4_0/01842c6b21e1d679_00000084.png",
-      "static/results/re10k/all_sparse_views/01842c6b21e1d679/views_4_0/01842c6b21e1d679_00000127.png",
-      "static/results/re10k/all_sparse_views/01842c6b21e1d679/views_4_0/01842c6b21e1d679_00000170.png"
-    ],
-    "videos": [
-      "static/results/re10k/ours_generations/4/108_0.mp4",
-      "static/results/re10k/vid-only_generations/4/108_0.mp4"
-    ]
-  },
-  {
-    "id": "scene10",
-    "title": "Scene 10",
-    "images": [
-      "static/results/pt/all_sparse_views/lincoln_memorial_statue/views_3_0/images/03518714_5846844084.jpg",
-      "static/results/pt/all_sparse_views/lincoln_memorial_statue/views_3_0/images/17235116_3670762328.jpg",
-      "static/results/pt/all_sparse_views/lincoln_memorial_statue/views_3_0/images/67904520_2282662352.jpg"
-    ],
-    "videos": [
-      "static/results/pt/ours_generations/3/18_1.mp4",
-      "static/results/pt/luma_generations/lincoln_memorial_statue/views_3_0/stitched.mp4"
-    ]
-  },
-  {
-    "id": "scene11",
-    "title": "Scene 11",
-    "images": [
-      "static/results/pt/all_sparse_views/st_pauls_cathedral/views_2_0/images/50777283_4936535855.jpg",
-      "static/results/pt/all_sparse_views/st_pauls_cathedral/views_2_0/images/78582770_410620191.jpg"
-    ],
-    "videos": [
-      "static/results/pt/luma_generations/st_pauls_cathedral/views_2_0/stitched.mp4",
-      "static/results/pt/ours_generations/2/48_0.mp4"
-    ]
-  },
-  {
-    "id": "scene12",
-    "title": "Scene 12",
-    "images": [
-      "static/results/re10k/all_sparse_views/015d8a2a2834d38c/views_5_0/015d8a2a2834d38c_00000044.png",
-      "static/results/re10k/all_sparse_views/015d8a2a2834d38c/views_5_0/015d8a2a2834d38c_00000088.png",
-      "static/results/re10k/all_sparse_views/015d8a2a2834d38c/views_5_0/015d8a2a2834d38c_00000132.png",
-      "static/results/re10k/all_sparse_views/015d8a2a2834d38c/views_5_0/015d8a2a2834d38c_00000176.png",
-      "static/results/re10k/all_sparse_views/015d8a2a2834d38c/views_5_0/015d8a2a2834d38c_00000220.png"
-    ],
-    "videos": [
-      "static/results/re10k/luma_generations/015d8a2a2834d38c/views_5_0/stitched.mp4",
-      "static/results/re10k/ours_generations/5/99_0.mp4"
-    ]
-  },
-  {
-    "id": "scene13",
-    "title": "Scene 13",
-    "images": [
-      "static/results/re10k/all_sparse_views/000c3ab189999a83/views_5_0/000c3ab189999a83_00000129.png",
-      "static/results/re10k/all_sparse_views/000c3ab189999a83/views_5_0/000c3ab189999a83_00000166.png",
-      "static/results/re10k/all_sparse_views/000c3ab189999a83/views_5_0/000c3ab189999a83_00000203.png",
-      "static/results/re10k/all_sparse_views/000c3ab189999a83/views_5_0/000c3ab189999a83_00000240.png",
-      "static/results/re10k/all_sparse_views/000c3ab189999a83/views_5_0/000c3ab189999a83_00000277.png"
-    ],
-    "videos": [
-      "static/results/re10k/luma_generations/000c3ab189999a83/views_5_0/stitched.mp4",
-      "static/results/re10k/ours_generations/5/0_0.mp4"
-    ]
-  },
-  {
-    "id": "scene14",
-    "title": "Scene 14",
-    "images": [
-      "static/results/re10k/all_sparse_views/01a2277ee817b310/views_3_0/01a2277ee817b310_00000030.png",
-      "static/results/re10k/all_sparse_views/01a2277ee817b310/views_3_0/01a2277ee817b310_00000065.png",
-      "static/results/re10k/all_sparse_views/01a2277ee817b310/views_3_0/01a2277ee817b310_00000100.png"
-    ],
-    "videos": [
-      "static/results/re10k/vid-only_generations/3/126_0.mp4",
-      "static/results/re10k/ours_generations/3/126_0.mp4"
-    ]
-  },
-  {
-    "id": "scene15",
-    "title": "Scene 15",
-    "images": [
-      "static/results/pt/all_sparse_views/brandenburg_gate/views_3_0/images/38050442_8184868664.jpg",
-      "static/results/pt/all_sparse_views/brandenburg_gate/views_3_0/images/87789955_4151176666.jpg",
-      "static/results/pt/all_sparse_views/brandenburg_gate/views_3_0/images/89274779_2983340497.jpg"
-    ],
-    "videos": [
-      "static/results/pt/ours_generations/3/0_0.mp4",
-      "static/results/pt/vid-only_generations/3/0_0.mp4"
-    ]
-  },
-  {
-    "id": "scene16",
-    "title": "Scene 16",
-    "images": [
-      "static/results/pt/all_sparse_views/st_pauls_cathedral/views_3_1/images/23168302_9287800128.jpg",
-      "static/results/pt/all_sparse_views/st_pauls_cathedral/views_3_1/images/36924691_6406659277.jpg",
-      "static/results/pt/all_sparse_views/st_pauls_cathedral/views_3_1/images/64684364_2174886426.jpg"
-    ],
-    "videos": [
-      "static/results/pt/luma_generations/st_pauls_cathedral/views_3_1/stitched.mp4",
-      "static/results/pt/ours_generations/3/49_1.mp4"
-    ]
-  },
-  {
-    "id": "scene17",
-    "title": "Scene 17",
-    "images": [
-      "static/results/pt/all_sparse_views/notre_dame_front_facade/views_4_0/images/22923618_3392895108.jpg",
-      "static/results/pt/all_sparse_views/notre_dame_front_facade/views_4_0/images/76492687_2293746202.jpg",
-      "static/results/pt/all_sparse_views/notre_dame_front_facade/views_4_0/images/76692819_8608643093.jpg",
-      "static/results/pt/all_sparse_views/notre_dame_front_facade/views_4_0/images/99388900_7610461422.jpg"
-    ],
-    "videos": [
-      "static/results/pt/ours_generations/4/27_0.mp4",
-      "static/results/pt/luma_generations/notre_dame_front_facade/views_4_0/stitched.mp4"
-    ]
-  },
-  {
-    "id": "scene18",
-    "title": "Scene 18",
-    "images": [
-      "static/results/pt/all_sparse_views/pantheon_exterior/views_2_0/images/07184561_9337173062.jpg",
-      "static/results/pt/all_sparse_views/pantheon_exterior/views_2_0/images/45535681_498276500.jpg"
-    ],
-    "videos": [
-      "static/results/pt/ours_generations/2/33_0.mp4",
-      "static/results/pt/luma_generations/pantheon_exterior/views_2_0/stitched.mp4"
-    ]
-  },
-  {
-    "id": "scene19",
-    "title": "Scene 19",
-    "images": [
-      "static/results/re10k/all_sparse_views/01b08e2f20321127/views_5_0/01b08e2f20321127_00000000.png",
-      "static/results/re10k/all_sparse_views/01b08e2f20321127/views_5_0/01b08e2f20321127_00000018.png",
-      "static/results/re10k/all_sparse_views/01b08e2f20321127/views_5_0/01b08e2f20321127_00000037.png",
-      "static/results/re10k/all_sparse_views/01b08e2f20321127/views_5_0/01b08e2f20321127_00000055.png",
-      "static/results/re10k/all_sparse_views/01b08e2f20321127/views_5_0/01b08e2f20321127_00000074.png"
-    ],
-    "videos": [
-      "static/results/re10k/ours_generations/5/138_0.mp4",
-      "static/results/re10k/luma_generations/01b08e2f20321127/views_5_0/stitched.mp4"
-    ]
-  },
-  {
-    "id": "scene20",
-    "title": "Scene 20",
-    "images": [
-      "static/results/pt/all_sparse_views/sacre_coeur/views_2_1/images/02580991_8300101521.jpg",
-      "static/results/pt/all_sparse_views/sacre_coeur/views_2_1/images/03654060_2228949569.jpg"
-    ],
-    "videos": [
-      "static/results/pt/luma_generations/sacre_coeur/views_2_1/stitched.mp4",
-      "static/results/pt/ours_generations/2/43_0.mp4"
-    ]
-  },
-  {
-    "id": "scene21",
-    "title": "Scene 21",
-    "images": [
-      "static/results/pt/all_sparse_views/trevi_fountain/views_3_0/images/29740134_3799463911.jpg",
-      "static/results/pt/all_sparse_views/trevi_fountain/views_3_0/images/37233881_3650701281.jpg",
-      "static/results/pt/all_sparse_views/trevi_fountain/views_3_0/images/75017867_5746101695.jpg"
-    ],
-    "videos": [
-      "static/results/pt/luma_generations/trevi_fountain/views_3_0/stitched.mp4",
-      "static/results/pt/ours_generations/3/60_1.mp4"
-    ]
-  },
-  {
-    "id": "scene22",
-    "title": "Scene 22",
-    "images": [
-      "static/results/pt/all_sparse_views/piazza_san_marco/views_2_1/images/04412498_5871274067.jpg",
-      "static/results/pt/all_sparse_views/piazza_san_marco/views_2_1/images/87179181_4063549880.jpg"
-    ],
-    "videos": [
-      "static/results/pt/luma_generations/piazza_san_marco/views_2_1/stitched.mp4",
-      "static/results/pt/ours_generations/2/37_0.mp4"
-    ]
-  },
-  {
-    "id": "scene23",
-    "title": "Scene 23",
-    "images": [
-      "static/results/re10k/all_sparse_views/00beb03ef95dc637/views_3_0/00beb03ef95dc637_00000028.png",
-      "static/results/re10k/all_sparse_views/00beb03ef95dc637/views_3_0/00beb03ef95dc637_00000065.png",
-      "static/results/re10k/all_sparse_views/00beb03ef95dc637/views_3_0/00beb03ef95dc637_00000102.png"
-    ],
-    "videos": [
-      "static/results/re10k/ours_generations/3/57_0.mp4",
-      "static/results/re10k/luma_generations/00beb03ef95dc637/views_3_0/stitched.mp4"
-    ]
-  },
-  {
-    "id": "scene24",
-    "title": "Scene 24",
-    "images": [
-      "static/results/re10k/all_sparse_views/0181d3b41c2cf87c/views_2_0/0181d3b41c2cf87c_00000029.png",
-      "static/results/re10k/all_sparse_views/0181d3b41c2cf87c/views_2_0/0181d3b41c2cf87c_00000059.png"
-    ],
-    "videos": [
-      "static/results/re10k/ours_generations/2/105_0.mp4",
-      "static/results/re10k/luma_generations/0181d3b41c2cf87c/views_2_0/stitched.mp4"
-    ]
-  },
-  {
-    "id": "scene25",
-    "title": "Scene 25",
-    "images": [
-      "static/results/pt/all_sparse_views/reichstag/views_5_0/images/35221995_8835396469.jpg",
-      "static/results/pt/all_sparse_views/reichstag/views_5_0/images/49051226_8836027266.jpg",
-      "static/results/pt/all_sparse_views/reichstag/views_5_0/images/49284352_2431392889.jpg",
-      "static/results/pt/all_sparse_views/reichstag/views_5_0/images/91549947_3428166276.jpg",
-      "static/results/pt/all_sparse_views/reichstag/views_5_0/images/91549947_3428166276.jpg"
-    ],
-    "videos": [
-      "static/results/pt/ours_generations/5/39_0.mp4",
-      "static/results/pt/luma_generations/reichstag/views_5_0/stitched.mp4"
-    ]
-  }
-];
-
-  // Split comparisons into PT and RE10K
   const ptComparisons = comparisons
-    .filter(comp => comp.videos[0].includes('/pt/'))
+    .filter(comp => comp.images[0].includes('/pt/'))
     .map(comp => ({
         ...comp,
-        video: comp.videos.find(v => v.includes('ours_generations'))
+        video: comp.videos[0] 
     }));
 
 const re10kComparisons = comparisons
-    .filter(comp => comp.videos[0].includes('/re10k/'))
+    .filter(comp => comp.images[0].includes('/re10k/'))
     .map(comp => ({
         ...comp,
-        video: comp.videos.find(v => v.includes('ours_generations'))
+        video: comp.videos[0]
     }));
 
     class VideoController {
@@ -1054,13 +946,10 @@ const re10kComparisons = comparisons
     }
 
     checkForEndPause() {
-        // Increased the threshold to catch the end frame more reliably
-        // and added a check for the actual duration
         const timeRemaining = this.video.duration - this.video.currentTime;
-        const endThreshold = Math.min(0.2, this.video.duration * 0.01); // Dynamic threshold based on video length
+        const endThreshold = Math.min(0.2, this.video.duration * 0.01);
         
         if (timeRemaining <= endThreshold && !this.endPauseTriggered) {
-            // Ensure we're at the very end
             this.video.currentTime = this.video.duration;
             this.triggerEndPause();
         }
@@ -1071,13 +960,10 @@ const re10kComparisons = comparisons
         this.endPauseTriggered = true;
 
         this.video.pause();
-        this.video.classList.add('highlight-end', 'paused');
-
-        // Increased pause duration at the end
+        
         setTimeout(() => {
-            this.video.classList.remove('highlight-end', 'paused');
             this.restartVideo();
-        }, 750); // Increased from 500ms to 750ms
+        }, 750);
     }
 
     handleVideoEnded() {
@@ -1090,27 +976,24 @@ const re10kComparisons = comparisons
 
         this.video.currentTime = 0;
         this.video.pause();
-        this.video.classList.add('highlight-start', 'paused');
 
         setTimeout(() => {
-            this.video.classList.remove('highlight-start', 'paused');
             this.video.play();
             this.isWaitingToRestart = false;
             this.endPauseTriggered = false;
-        }, 750); // Increased from 500ms to 750ms for consistency
+        }, 750);
     }
 
     setupInitialPause() {
         this.video.pause();
         this.video.currentTime = 0;
-        this.video.classList.add('highlight-start', 'paused');
 
         setTimeout(() => {
-            this.video.classList.remove('highlight-start', 'paused');
             this.video.play();
-        }, 750); // Increased from 500ms to 750ms for consistency
+        }, 750);
     }
 }
+
 
   class Slideshow {
         constructor(containerId, videos) {
