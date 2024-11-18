@@ -1,5 +1,16 @@
 const comparisons = [
   {
+    "id": "scene5",
+    "title": "Scene 5",
+    "images": [
+      "static/results/pt/all_sparse_views/reichstag/views_2_0/images/64271070_4602086309.jpg",
+      "static/results/pt/all_sparse_views/reichstag/views_2_0/images/77122925_1063274053.jpg"
+    ],
+    "videos": [
+      "static/results/teaser/output_scene5.mp4"
+    ]
+  },
+  {
     "id": "scene17",
     "title": "Scene 17",
     "images": [
@@ -51,17 +62,7 @@ const comparisons = [
       "static/results/teaser/output_scene4.mp4"
     ]
   },
-  {
-    "id": "scene5",
-    "title": "Scene 5",
-    "images": [
-      "static/results/pt/all_sparse_views/reichstag/views_2_0/images/64271070_4602086309.jpg",
-      "static/results/pt/all_sparse_views/reichstag/views_2_0/images/77122925_1063274053.jpg"
-    ],
-    "videos": [
-      "static/results/teaser/output_scene5.mp4"
-    ]
-  },
+  
   {
     "id": "scene6",
     "title": "Scene 6",
@@ -73,17 +74,6 @@ const comparisons = [
     ],
     "videos": [
       "static/results/teaser/output_scene6.mp4"
-    ]
-  },
-  {
-    "id": "scene7",
-    "title": "Scene 7",
-    "images": [
-      "static/results/pt/all_sparse_views/notre_dame_front_facade/views_2_2/images/27335203_487553664.jpg",
-      "static/results/pt/all_sparse_views/notre_dame_front_facade/views_2_2/images/80749661_7180275066.jpg"
-    ],
-    "videos": [
-      "static/results/teaser/output_scene7.mp4"
     ]
   },
   {
@@ -173,6 +163,7 @@ const comparisons = [
       "static/results/teaser/output_scene13.mp4"
     ]
   },
+  
   {
     "id": "scene14",
     "title": "Scene 14",
@@ -219,6 +210,17 @@ const comparisons = [
     ],
     "videos": [
       "static/results/teaser/output_scene18.mp4"
+    ]
+  },
+  {
+    "id": "scene7",
+    "title": "Scene 7",
+    "images": [
+      "static/results/pt/all_sparse_views/notre_dame_front_facade/views_2_2/images/27335203_487553664.jpg",
+      "static/results/pt/all_sparse_views/notre_dame_front_facade/views_2_2/images/80749661_7180275066.jpg"
+    ],
+    "videos": [
+      "static/results/teaser/output_scene7.mp4"
     ]
   },
   {

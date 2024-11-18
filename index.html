@@ -88,32 +88,53 @@
       border-color: red;
     }
     .nav-button {
-      position: absolute;
-      top: 300px;
-      transform: translateY(-50%);
-      background: rgba(0, 0, 0, 0.2);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      z-index: 10;
-      transition: all 0.3s ease;
-    }
-    .nav-button:hover {
-      background: rgba(0, 0, 0, 0.4);
-    }
-    .prev-button {
-      left: 110px;
-    }
-    .next-button {
-      right: 110px;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    background: #fff;
+    border: 1px solid #fff;
+    border-radius: 25091983px;
+    box-shadow: 0 2px 5px #3232321a;
+    cursor: pointer;
+    transition: transform 0.3s, opacity 0.3s;
+    z-index: 10;
+}
+
+.nav-button:hover {
+    transform: translateY(-50%) scale(1.2);
+}
+
+.prev-button {
+    left: 110px;
+}
+
+.next-button {
+    right: 110px;
+}
+/* Replace the SVG-based arrows with CSS triangles */
+.prev-button::before,
+.next-button::before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.prev-button::before {
+    border-width: 6px 10px 6px 0;
+    border-color: transparent #666 transparent transparent;
+    margin-right: 2px;
+}
+
+.next-button::before {
+    border-width: 6px 0 6px 10px;
+    border-color: transparent transparent transparent #666;
+    margin-left: 2px;
+}
     .counter {
       position: absolute;
       top: 20px;
@@ -317,6 +338,24 @@
   </div>
 </section>
 
+<!-- tldr -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <!-- <h2 class="title is-3">Abstract</h2> -->
+        <div class="content has-text-justified">
+          <p>
+            <strong>TL;DR</strong> We propose KFC-W (KeyFrame-Conditioned video generation in-the-Wild), a method that generates a video by interpolating between unposed internet photos.
+            Commercial video models like Luma Dream Machine can fail to produce 3D-consistent videos, 
+            so we jointly train video synthesis with a scalable 3D-aware objective.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <!-- <div class="hero-body"><h2 class="title is-3" style="text-align: center;">Generated Videos of Ours (Full)</h2> -->
@@ -324,9 +363,9 @@
       <!-- <h2 class="slideshow-section-title">Internet Photo Collections from the Phototourism Dataset</h2> -->
       <div class="slideshow-container" id="pt-slideshow">
         <div class="counter">Scene 1/N</div>
-        <button class="nav-button prev-button">←</button>
-        <button class="nav-button next-button">→</button>
         <div class="video-container">
+          <button class="nav-button prev-button"></button>
+          <button class="nav-button next-button"></button>
           <video playsinline muted>
             <source src="" type="video/mp4">
             Your browser does not support the video tag.
@@ -347,19 +386,19 @@
       <!-- <h2 class="slideshow-section-title">RE10K Dataset</h2> -->
       <div class="slideshow-container" id="re10k-slideshow">
         <div class="counter">Scene 1/N</div>
-        <button class="nav-button prev-button">←</button>
-        <button class="nav-button next-button">→</button>
         <div class="video-container">
+          <button class="nav-button prev-button"></button>
+          <button class="nav-button next-button"></button>
           <video playsinline muted>
             <source src="" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </div>
-        <div class="video-note">
+        <!-- <div class="video-note">
             The generated video simulates a camera movement linking all input images, progressing from input 1 to n.<br>
             The <span class="green">green border</span> denotes the first video frame, which should correspond to the first input image.<br>
             The <span class="red">red border</span> denotes the last video frame, which should correspond to the last input image.<br>
-        </div>
+        </div> -->
         <div class="source-images">
           <div class="image-grid"></div>
           <h3 class="source-images-title">Unposed photos from the Re10k Dataset</h3>
@@ -372,7 +411,6 @@
 <!-- abstract -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
@@ -380,7 +418,7 @@
           <p>
             We address the problem of generating videos from unposed internet photos.
             A handful of input images serve as keyframes, and our model interpolates between them to simulate a path moving between the cameras. 
-            Given random images, a model’s ability to capture underlying geometry, recognize scene identity, and relate frames in terms of camera position and orientation reflects a fundamental understanding of 3D structure and scene layout. However, existing video models such as Luma Dream Machine fail at this task. 
+            Given random images, a model's ability to capture underlying geometry, recognize scene identity, and relate frames in terms of camera position and orientation reflects a fundamental understanding of 3D structure and scene layout. However, existing video models such as Luma Dream Machine fail at this task. 
             We design a self-supervised method that takes advantage of the consistency of videos and variability of multiview internet photos to train a scalable, 3D-aware video model without any 3D annotations such as camera parameters.
             We validate that our method outperforms commercial models in terms of geometric and appearance consistency. 
             We also show our model benefits applications that enable camera control, such as 3D Gaussian Splatting. 
@@ -473,26 +511,20 @@
         </div>
         <div class="comparison-slideshow-container" id="comparison-slideshow">
           <div class="counter">Scene 1/N</div>
-          <button class="nav-button prev-button">←</button>
-          <button class="nav-button next-button">→</button>
-          
-          <h3 class="source-images-title">Input Images</h3>
-          <div class="source-images">
-            <div class="image-grid"></div>
-          </div>
-
           <div class="comp-video-container">
+            <button class="nav-button prev-button"></button>
+            <button class="nav-button next-button"></button>
             <video playsinline muted controls>
               <source src="" type="video/mp4">
               Your browser does not support the video tag.
             </video>
           </div>
         
-          <div class="video-note">
+          <!-- <div class="video-note">
             The generated videos simulate camera movements linking all input images, from input 1 to n.<br>
             The <span class="green">green border</span> denotes the first video frame, which should correspond to the first input image.<br>
             The <span class="red">red border</span> denotes the last video frame, which should correspond to the last input image.<br>
-          </div>
+          </div> -->
         </div>
       
       </div>
@@ -620,6 +652,14 @@
       <div class="column is-four-fifths">
         <h2 class="title is-4">3D Reconstruction via COLMAP</h2>
         
+        
+
+        <p>
+          We validate whether our generated frames are consistent in geometry, and therefore suitable for downstream applications such as 3D reconstruction.
+We run COLMAP
+on the original input views, then include our generated frames. 
+The improvement in reconstruction success rate shows that our generated frames provide reliable feature correspondences that connect distant views.
+        </p> <br>
         <img src="static/images/colmap.png" width="60%" style="display: block; margin: 0 auto;">
 
       </div>
@@ -632,6 +672,12 @@
     <div class="columns is-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-4">3D Gaussian Splatting via InstantSplat</h2>
+
+        <p>
+          We also experiment with running 3D Gaussian Splatting (3DGS) on our generated frames. 
+Internet photos from the Phototourism dataset have wide baselines, significant occlusions, and varying illumination, which make it very difficult to train 3DGS methods based on a pixel-rendering loss. 
+Our generated frames are denser and with more consistent illumination, leading to substantial improvements in reconstruction metrics. 
+        </p>
         
         <div class="applications-container">
           <!-- First Example -->
@@ -779,22 +825,39 @@
     <div class="columns is-centered">
       <div class="column is-four-fifths">
         <div class="columns is-centered has-text-centered">
-        <h2 class="title is-3">Conclusion</h2>
+        <h2 class="title is-3">Takeaways</h2>
       </div>
           <ol>
-            <li>Future Work: There are many avenues for future work, such as scaling up training data to include dynamic objects, 
+            <!-- <li>Future Work: There are many avenues for future work, such as scaling up training data to include dynamic objects, 
               enforcing a stronger constraint on illumination consistency, 
               and extrapolating to unseen views.
-            </li>
-            <li>Scaling 3D awareness via self-supervised learning: 
+            </li> -->
+            <!-- <li>Scaling 3D awareness via self-supervised learning:  -->
               We posit that brute-force scaling will not help video models understand the physical world, as even the most advanced video models today have difficulty understanding physics or scene layouts. 
               However, rather than incorporating conditions such as camera poses, which can be difficult to reliably estimate at scale, 
               we jointly train a scalable 3D-aware objective. 
               We suggest that this concept can be applied to other tasks as well, such as modeling motion that respects physical constraints. 
               Additionally, our model generates videos from internet photos even though it never sees this specific input-output pairing during training, suggesting multitask learning leads to emergent capabilities. 
 
-            </li>
+            <!-- </li> -->
         </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="columns is-centered has-text-centered">
+        <h2 class="title is-3">Acknowledgments</h2>
+      </div>
+          <p>
+            Gene Chou was funded by a NSF Graduate Research Fellowship.
+          </p>
+
       </div>
     </div>
   </div>
@@ -806,7 +869,7 @@
     <pre><code>
     @misc{
       chou2024kfcw,
-      title={KFC-W: Generating In-the-Wild Scenes with KeyFrame-Conditioned Videos}, 
+      title={Generating 3D-Consistent Videos from Unposed Internet Photos}, 
       author={Gene Chou and Kai Zhang and Sai Bi and Hao Tan and Zexiang Xu and Fujun Luan and Bharath Hariharan and Noah Snavely},
       year={2024},
       archivePrefix={arXiv},
