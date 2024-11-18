@@ -347,8 +347,10 @@
         <div class="content has-text-justified">
           <p>
             <strong>TL;DR</strong> We propose KFC-W (KeyFrame-Conditioned video generation in-the-Wild), a method that generates a video by interpolating between unposed internet photos.
-            Commercial video models like Luma Dream Machine can fail to produce 3D-consistent videos, 
-            so we jointly train video synthesis with a scalable 3D-aware objective.
+            Commercial video models like Luma Dream Machine can fail to produce 3D-consistent videos. 
+            For instance, in the videos below, it tends to hallucinate new buildings. 
+            Thus, we jointly train video synthesis with a scalable 3D-aware objective, which teaches our model to identify the scene geometry and layout.
+            
           </p>
         </div>
       </div>
@@ -882,12 +884,12 @@ Our generated frames are denser and with more consistent illumination, leading t
 
 <footer class="footer">
   <div class="container">
-    <div class="content has-text-centered">
+    <!-- <div class="content has-text-centered">
       <a class="icon-link"
          href="./MegaScenes_paper_v1.pdf">
         <i class="fas fa-file-pdf"></i>
       </a>
-    </div>
+    </div> -->
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
