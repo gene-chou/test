@@ -119,66 +119,14 @@
 <section class="hero is-light is-small">
   <!-- <div class="hero-body"> -->
     <div class="container is-max-desktop">
-      <!-- <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-steve">
-          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/steve.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-chair-tp">
-          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/chair-tp.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-shiba">
-          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/shiba.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-fullbody">
-          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/fullbody.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-blueshirt">
-          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/blueshirt.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-mask">
-          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/mask.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-coffee">
-          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/coffee.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-toby">
-          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/toby2.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div> -->
-
-      <video poster="" id="stage" autoplay controls muted loop playsinline height="90%">
-        <source src="./static/videos/flashdepth_stage.mp4"
+      <video poster="" id="stage" autoplay controls muted loop playsinline height="100%">
+        <source src="./static/videos/flashdepth_teaser.mp4"
                 type="video/mp4">
       </video>
 
-      <h2 class="subtitle" style="font-size: 1rem;">
-        FlashDepth enables high-resolution, real-time video depth estimation and has been integrated into Eyeline Studio’s production stages to support live video effects. 
-        In this example, it segments the actors, chairs, and set pieces to compose the background in near-real-time. 
-        This allows filmmakers to preview how actors fit within the virtual scene without relying on post-production, and makes it easier to get the shot right.
+      <h2 class="subtitle" style="font-size: 1.1rem;">
+        FlashDepth enables high-resolution, real-time video depth estimation. It captures fine details like fur, hair, and poles. 
+        We provide additional snapshots in the paper (Fig. 2,4).
       </h2>
 
     <!-- </div> -->
@@ -389,34 +337,67 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-      <h2 class="title is-3">Depth-based Visual Effects</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-composition">
-          <video poster="" id="composition" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/vfx/composition.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-unprojection">
-          <video poster="" id="unprojection" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/vfx/unprojection.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-relight">
-          <video poster="" id="relight" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/vfx/relight.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
+      <h2 class="title is-3">Applications</h2>
 
-      <h2 class="subtitle">
-        FlashDepth is sufficiently accurate to enable multiple visual effects, such as 
-        depth-based composition, unprojection (novel view synthesis), and relighting. 
-      </h2>
 
-    </div>
+      <h3 class="title is-4">On-Set Live Previews</h3>
+        <!-- <div class="content has-text-justified"> -->
+          
+          <video poster="" id="stage" autoplay controls muted loop playsinline height="90%">
+            <source src="./static/videos/flashdepth_stage.mp4"
+                    type="video/mp4">
+          </video>
+    
+          <h4 class="subtitle" style="font-size: 1rem;">
+            FlashDepth has been integrated into Eyeline Studio’s production stages to support live video effects. 
+            In this example, it segments the actors, chairs, and set pieces to compose the background in near-real-time. 
+            This allows filmmakers to preview how actors fit within the virtual scene without relying on post-production, and makes it easier to get the shot right.
+            <div style="height: 0.5em;"></div>
+            Left screen: Two actors in front of LED screens that can change in brightness and intensity based on position
+            and depth of the subjects, for special effects such as <a href="https://vgl.ict.usc.edu/Research/SpatialRelighting/">relighting</a>.  
+            <div style="height: 0.5em;"></div>
+            
+            Right screen: Real-time depth estimation. Effects in order shown: 
+            1) depth estimation; 
+            2) depth slicing (colorization) to carve depth ranges of the set 
+            (specifically, we interactively adjust the depth threshold to highlight the actors and props in the same (green) range);
+            3) segmentation based on the depth threshold.
+          </h4>
+        
+        
+        <!-- </div> -->
+
+      <br>
+      <h3 class="title is-4">Depth-based Visual Effects</h3>
+        <!-- <div class="content has-text-justified"> -->
+          <div id="results-carousel" class="carousel results-carousel">
+            <div class="item item-composition">
+              <video poster="" id="composition" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/vfx/composition.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="item item-unprojection">
+              <video poster="" id="unprojection" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/vfx/unprojection.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="item item-relight">
+              <video poster="" id="relight" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/vfx/relight.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+          </div>
+    
+          <h2 class="subtitle" style="font-size: 1rem;">
+            FlashDepth is sufficiently accurate to enable multiple visual effects, such as 
+            depth-based composition, unprojection (novel view synthesis), and relighting. 
+          </h2>
+    
+        <!-- </div> -->
+        
   </div>
 </section>
 
